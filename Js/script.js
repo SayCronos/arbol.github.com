@@ -70,7 +70,13 @@ function getURLParam(name) {
 function showDedicationText() { //seguidores
   let text = getURLParam('text');
   if (!text) {
-    text = `Para el amor de mi vida:\n\nDesde el primer momento supe que eras tú. Tu sonrisa, tu voz, tu forma de ser… todo en ti me hace sentir en casa.\n\nGracias por acompañarme en cada paso, por entenderme incluso en silencio, y por llenar mis días de amor.\n\nTe amo más de lo que las palabras pueden expresar.`;  } else {
+    text = `
+    Te Quiero...\n
+    No te ofendas, pero te equivocas, no estamos en caminos separados,
+    tú eres mi camino, y siempre vas a ser mi camino.\n
+    Sé que hay mil razones para no estar juntos, pero estoy harto de ellas.\n
+    Hay que hacer una elección, y yo te elijo a ti, porque te voy a seguir,
+    te seguiré a todas partes... te seguiré el resto de mi vida.`;  } else {
     text = decodeURIComponent(text).replace(/\\n/g, '\n');
   }
   const container = document.getElementById('dedication-text');
@@ -100,12 +106,38 @@ function showSignature() {
     signature.className = 'signature';
     dedication.appendChild(signature);
   }
+
+  // Limpiar contenido previo
+  signature.innerHTML = '';
+
   let firma = getURLParam('firma');
-  signature.textContent = firma ? decodeURIComponent(firma) : "Con amor, Zero";
+  if (firma) {
+    // Si hay un parámetro de firma, mostrarlo como texto
+    const textNode = document.createTextNode(decodeURIComponent(firma));
+    signature.appendChild(textNode);
+  } else {
+    // Si no hay parámetro de firma, mostrar el texto por defecto
+    const defaultText = document.createTextNode("Con Cariño, Tu amigo y Vecino\n El Hombre Araña");
+    signature.appendChild(defaultText);
+  }
+
+  // Crear un elemento de imagen
+  const img = document.createElement('img');
+  img.src = 'https://i.pinimg.com/736x/04/53/f1/0453f19df14cdbb94482ba7fbeadd6ac.jpg'; // Reemplaza con la URL de tu imagen
+  img.alt = 'Firma';
+  
+  // Establecer el tamaño de la imagen
+  img.style.width = '500px'; // Establece el ancho de la imagen
+  img.style.height = '400px'; // Establece el alto de la imagen
+
+  // Asegura que la imagen se muestre como un bloque y añade un margen superior
+  img.style.display = 'block';
+  img.style.marginTop = '10px';
+  // Añadir la imagen al div de la firma
+  signature.appendChild(img);
+
   signature.classList.add('visible');
 }
-
-
 
 // Controlador de objetos flotantes
 function startFloatingObjects() {
